@@ -1,0 +1,120 @@
+# This is a sample Python script.
+import math
+import timeit
+import matplotlib.pyplot as plt
+import decimal
+def calruntime():
+    '''
+    need to add start and stop in your code
+    :return:
+    '''
+    start = timeit.default_timer()
+    #Your statements here
+    stop = timeit.default_timer()
+    print('Time: ', stop - start)
+
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+def binets_formula(n):
+    """
+    The central function implementing Binet's Formula
+    """
+    start = timeit.default_timer()
+    sqrt_5 = math.sqrt(5)
+    if n == (0&1):
+        F_n = n
+    else:
+        F_n = float(((1 + sqrt_5) ** n - (1 - sqrt_5) ** n )/( 2 ** n * sqrt_5))
+    #print('Time: ', stop - start)
+    stop = timeit.default_timer()
+    runtime = stop - start
+    return F_n, runtime
+
+def simpleplot(list, name):
+    # x axis values
+    y = list
+    # corresponding y axis values
+    x = range(len(list))
+    # plotting the points
+    plt.plot(x, y)
+    # naming the x axis
+    plt.xlabel('numbers')
+    # naming the y axis
+    plt.ylabel('runtime')
+    # giving a title to my graph
+    plt.title(name)
+    # function to show the plot
+    plt.show()
+
+cache = {0: 0, 1: 1}
+def fibonacci_of_v2(n):
+    if n in cache:  # Base case
+        return cache[n]
+    # Compute and cache the Fibonacci number
+    cache[n] = fibonacci_of(n - 1) + fibonacci_of(n - 2)  # Recursive case
+    return cache[n]
+
+
+# Fibonacci Series using Dynamic Programming
+def fibonacci_DP(n):
+    # Taking 1st two fibonacci numbers as 0 and 1
+    f = [0, 1]
+    for i in range(2, n + 1):
+        f.append(f[i - 1] + f[i - 2])
+    return f[n]
+
+
+
+def fibonacci_of(n):
+    if n in {0, 1}:  # Base case
+        return n
+    return fibonacci_of(n - 1) + fibonacci_of(n - 2)  # Recursive case
+
+# Python3 Program to find n'th fibonacci Number in
+# with O(Log n) arithmetic operations
+MAX = 100000
+
+# Create an array for memoization
+f = [0] * MAX
+
+# Returns n'th fibonacci number using table f[]
+def fib_matrix(n) :
+	# Base cases
+	if (n == 0) :
+		return 0
+	if (n == 1 or n == 2) :
+		f[n] = 1
+		return (f[n])
+
+	# If fib(n) is already computed
+	if (f[n]) :
+		return f[n]
+
+	if( n & 1) :
+		k = (n + 1) // 2
+	else :
+		k = n // 2
+	# Applying above formula [Note value n&1 is 1
+	# if n is odd, else 0.
+	if((n & 1) ) :
+		f[n] = (fib_matrix(k) * fib_matrix(k) + fib_matrix(k-1) * fib_matrix(k-1))
+	else :
+		f[n] = (2*fib_matrix(k-1) + fib_matrix(k))*fib_matrix(k)
+	return f[n]
+# Driver code
+# This code is contributed by Nikita Tiwari.
+
+def main():
+
+    l_runtime = []
+    for i in range(10000):
+        start = timeit.default_timer()
+        fib_matrix(i)
+        stop = timeit.default_timer()
+        l_runtime.append(stop-start)
+        #print(f'{i} Done')
+    simpleplot(l_runtime,'Matrix_Fib_Runtime')
+
+if __name__ == '__main__':
+    main()
