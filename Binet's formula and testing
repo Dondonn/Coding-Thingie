@@ -1,0 +1,59 @@
+import math
+import timeit
+import matplotlib.pyplot as plt
+import decimal
+def calruntime():
+    '''
+    need to add start and stop in your code
+    :return:
+    '''
+    start = timeit.default_timer()
+    #Your statements here
+    stop = timeit.default_timer()
+    print('Time: ', stop - start)
+
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+def binets_formula(n):
+    """
+    The central function implementing Binet's Formula
+    """
+    start = timeit.default_timer()
+    sqrt_5 = math.sqrt(5)
+    if n == (0&1):
+        F_n = n
+    else:
+        F_n = float(((1 + sqrt_5) ** n - (1 - sqrt_5) ** n )/( 2 ** n * sqrt_5))
+    #print('Time: ', stop - start)
+    stop = timeit.default_timer()
+    runtime = stop - start
+    return F_n, runtime
+
+def simpleplot(list):
+    # x axis values
+    y = list
+    # corresponding y axis values
+    x = range(len(list))
+    # plotting the points
+    plt.plot(x, y)
+    # naming the x axis
+    plt.xlabel('numbers')
+    # naming the y axis
+    plt.ylabel('runtime')
+    # giving a title to my graph
+    plt.title('Graph!')
+    # function to show the plot
+    plt.show()
+
+def main():
+
+    l_runtime = []
+    for i in range(600):
+        fib_number,r_time = binets_formula(i)
+        l_runtime.append(r_time)
+        #print(f'{i} Done')
+    simpleplot(l_runtime)
+
+if __name__ == '__main__':
+    main()
